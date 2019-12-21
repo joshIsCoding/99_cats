@@ -12,4 +12,8 @@ class CatsController < ApplicationController
          redirect_to cats_url
       end
    end
+
+   def new
+      render :new
+   end
 end
