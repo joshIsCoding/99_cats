@@ -9,6 +9,13 @@ class Cat < ApplicationRecord
    validates :color, inclusion: { in: COLORS }, presence: true 
    validates :sex, inclusion: { in: ["M", "F"] }, presence: true
 
+   has_many(
+      :rental_requests,
+      class_name: "CatRentalRequest",
+      foreign_key: :cat_id,
+      primary_key: :id
+   )
+
    def age
       time_ago_in_words(birth_date)
    end
