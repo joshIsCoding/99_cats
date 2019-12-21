@@ -19,8 +19,8 @@
    <label for="color-select">Color</label>
    
    <select name="cat[color]" id="color-select">
-   <% if action == :new %>
-      <option disabled > ~select a color~ </option>
+   <% unless cat.persisted? %>
+      <option disabled selected > ~select a color~ </option>
    <% end %>
       <% Cat::COLORS.each do |color| %>
          <option value=<%= color %> <%= cat.color == color ? "selected" : "" %>> <%= color.capitalize %> </option>
@@ -30,5 +30,5 @@
    <label for="description">Description</label>
    <textarea id="description" name="cat[description]"><%= cat.description %></textarea>
 
-   <input type="submit" value="<%= action == :new ? 'Add my cat!' : 'Update my cat!'%>">
+   <input type="submit" value="<%= cat.persisted? ? 'Update my cat!' : 'Add my cat!' %>">
 </form>
