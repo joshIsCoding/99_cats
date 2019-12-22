@@ -10,6 +10,14 @@ class CatRentalRequest < ApplicationRecord
       primary_key: :id
    )
 
+   def pending?
+      self.status == "PENDING"
+   end
+
+   def denied?
+      self.status == "DENIED"
+   end
+
    def overlapping_requests
       CatRentalRequest.where(cat_id: self.cat_id)
       .where.not(id: self.id)
@@ -30,7 +38,7 @@ class CatRentalRequest < ApplicationRecord
    end
 
    def approve!
-      raise "This request isn't pending" unless self.status == "PENDING"
+      raise "This request isn't pending" unless self.pending?
       CatRentalRequest.transaction do
          self.status = "APPROVED"
          self.save!
@@ -40,7 +48,7 @@ class CatRentalRequest < ApplicationRecord
 
    private
    def does_not_overlap_approved_request
-      if overlapping_approved_requests.exists? && self.status != "DENIED"
+      if overlapping_approved_requests.exists? && !self.denied?
          errors[:base] << "#{self.desired_cat.name} is unavailable between the dates you have selected."
       end
    end
