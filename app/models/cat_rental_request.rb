@@ -1,6 +1,7 @@
 class CatRentalRequest < ApplicationRecord
    validates :start_date, :end_date, presence: true
    validates :status, inclusion: { in: ['PENDING', 'APPROVED', 'DENIED']}
+   validate :does_not_overlap_approved_request
 
    belongs_to(
       :desired_cat,
@@ -11,10 +12,10 @@ class CatRentalRequest < ApplicationRecord
 
    def overlapping_requests
       CatRentalRequest.where(cat_id: self.cat_id)
+      .where.not(id: self.id)
       .where.not(<<-SQL, this_start_date: self.start_date, this_end_date: self.end_date, this_id: self.id)
          (end_date < :this_start_date)
          OR (start_date > :this_end_date)
-         OR (id = :this_id)
       SQL
       # filters out all rental requests that start after or end before the current 
       # request for the same cat
@@ -22,5 +23,12 @@ class CatRentalRequest < ApplicationRecord
 
    def overlapping_approved_requests
       overlapping_requests.where(status: "APPROVED")
+   end
+
+   private
+   def does_not_overlap_approved_request
+      if overlapping_approved_requests.exists?
+         errors[:base] << "#{self.desired_cat.name} is unavailable between the dates you have selected."
+      end
    end
 end
