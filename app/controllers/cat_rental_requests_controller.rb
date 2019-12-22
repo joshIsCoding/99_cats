@@ -9,13 +9,10 @@ class CatRentalRequestsController < ApplicationController
       @new_rental_request = CatRentalRequest.new(rental_params)
       @cats = Cat.select(:name, :id)
       if @new_rental_request.save
-         redirect_to cat_rental_request_url(@new_rental_request)
+         redirect_to cat_url(@new_rental_request.desired_cat)
       else
          render :new
       end
-   end
-
-   def show
    end
 
    private
