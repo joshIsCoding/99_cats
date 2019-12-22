@@ -13,7 +13,8 @@ class Cat < ApplicationRecord
       :rental_requests,
       class_name: "CatRentalRequest",
       foreign_key: :cat_id,
-      primary_key: :id
+      primary_key: :id,
+      dependent: :destroy
    )
 
    def age
