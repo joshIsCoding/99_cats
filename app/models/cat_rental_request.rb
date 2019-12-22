@@ -46,6 +46,12 @@ class CatRentalRequest < ApplicationRecord
       end
    end
 
+   def deny!
+      raise "This request isn't pending" unless self.pending?
+      self.status = "DENIED"
+      self.save!
+   end
+
    private
    def does_not_overlap_approved_request
       if overlapping_approved_requests.exists? && !self.denied?
