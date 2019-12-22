@@ -7,12 +7,18 @@ class CatRentalRequestsController < ApplicationController
 
    def create
       @new_rental_request = CatRentalRequest.new(rental_params)
-      @cats = Cat.select(:name, :id)
       if @new_rental_request.save
          redirect_to cat_url(@new_rental_request.desired_cat)
       else
+         @cats = Cat.select(:name, :id)
          render :new
       end
+   end
+
+   def approve
+      @rental_request = CatRentalRequest.find_by_id(params[:id])
+      @rental_request.approve!
+      redirect_to cat_url(@rental_request.desired_cat)
    end
 
    private
