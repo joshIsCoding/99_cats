@@ -1,5 +1,7 @@
 <h1>Ask to rent a cat!</h1>
 
+<%= render "shared/errors" %>
+
 <form action="<%= cat_rental_requests_url %>" method="post">
    <label for="cat-select">Cat:</label>
    <select id="cat-select" name="cat_rental_request[cat_id]">
