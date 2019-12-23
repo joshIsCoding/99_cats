@@ -4,7 +4,7 @@ class User < ApplicationRecord
    validates :session_token, presence: true, uniqueness: true
    validates :password, allow_nil: true, length: { minimum: 5 }
    
-   #after_initialize :ensure_session_token_set
+   after_initialize :ensure_session_token_set
 
    attr_reader :password
 
@@ -32,6 +32,14 @@ class User < ApplicationRecord
    def is_password?(password)
       #new generates password object from pre-hashed digest
       BCrypt::Password.new(self.password_digest).is_password?(password)
+   end
+
+   private
+   
+   def ensure_session_token_set
+      # will not overwrite token if one exists
+      # otherwise, this would overwrite everytime an instance is generated
+      self.session_token ||= self.class.generate_session_token
    end
 
 end
