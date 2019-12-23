@@ -6,6 +6,8 @@ class User < ApplicationRecord
    
    #after_initialize :ensure_session_token_set
 
+   attr_reader :password
+
    def self.generate_session_token
       SecureRandom::urlsafe_base64(16)
    end
@@ -21,6 +23,7 @@ class User < ApplicationRecord
    end
 
    def is_password?(password)
+      #new generates password object from pre-hashed digest
       BCrypt::Password.new(self.password_digest).is_password?(password)
    end
 
