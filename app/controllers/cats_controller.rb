@@ -23,6 +23,7 @@ class CatsController < ApplicationController
       if @cat
          render :edit
       else
+         flash[:errors] = @cat.errors.full_messages
          redirect_to new_cat_url
       end
    end
@@ -32,6 +33,7 @@ class CatsController < ApplicationController
       if @cat.update(cat_params)
          redirect_to cat_url(@cat)
       else
+         flash.now[:errors] = @cat.errors.full_messages
          render :edit
       end
    end
@@ -43,6 +45,7 @@ class CatsController < ApplicationController
          redirect_to cat_url(@cat)
       else
          # redirect to new cat form if save fails
+         flash.now[:errors] = @cat.errors.full_messages
          render :new
       end
    end

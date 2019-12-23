@@ -10,6 +10,7 @@ class CatRentalRequestsController < ApplicationController
       if @new_rental_request.save
          redirect_to cat_url(@new_rental_request.desired_cat)
       else
+         flash.now[:errors] = @new_rental_request.errors.full_messages
          @cats = Cat.select(:name, :id)
          render :new
       end
