@@ -8,6 +8,13 @@ class User < ApplicationRecord
 
    attr_reader :password
 
+   def self.find_by_credentials(user_name, password)
+      # quietly return nil if user and/or password do not match
+      user = self.find_by(user_name: user_name)
+      return nil unless user
+      user.is_password?(password) ? user : nil
+   end
+
    def self.generate_session_token
       SecureRandom::urlsafe_base64(16)
    end
