@@ -1,20 +1,20 @@
 class SessionsController < ApplicationController
    def create
       user_credentials = params[:user]
-      @user = User.find_by_credentials(user_credentials[:user_name], user_credentials[:password])
-      if @user
-         #refresh session token for user and database
-         session[:session_token] = @user.reset_session_token!
-         redirect_to cats_url
-      else
-         flash.now[:errors] = ["Invalid user credentials."]
-         render :new
-      end
+      login_user!(user_credentials)
    end
 
    def new
       #renders login form for existing users
       @user = User.new
       render :new 
+   end
+
+   def destroy
+      if current_user
+         current_user.reset_session_token!
+         session[:session_token] = nil
+      end
+      redirect_to new_session_url
    end
 end
