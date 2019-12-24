@@ -7,4 +7,8 @@ Rails.application.routes.draw do
       patch 'deny'
     end
   end
+
+  resources :users, only: [:new, :create]
+  # only one session needed as each user can only have one
+  resource :session, only: [:new, :create, :destroy]
 end
