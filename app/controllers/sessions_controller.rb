@@ -1,4 +1,5 @@
 class SessionsController < ApplicationController
+   before_action :already_logged_in, except: :destroy
    def create
       user_credentials = params[:user]
       login_user!(user_credentials)
@@ -17,4 +18,5 @@ class SessionsController < ApplicationController
       end
       redirect_to new_session_url
    end
+
 end
