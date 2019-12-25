@@ -15,4 +15,9 @@ class ApplicationController < ActionController::Base
          render "session/new"
       end
    end
+
+   private
+   def already_logged_in
+      redirect_to cats_url if current_user
+   end
 end
