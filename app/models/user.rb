@@ -8,6 +8,13 @@ class User < ApplicationRecord
 
    attr_reader :password
 
+   has_many(
+      :cats,
+      class_name: 'Cat',
+      foreign_key: :user_id,
+      primary_key: :id
+   )
+
    def self.find_by_credentials(user_name, password)
       # quietly return nil if user and/or password do not match
       user = self.find_by(user_name: user_name)
