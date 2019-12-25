@@ -17,6 +17,13 @@ class Cat < ApplicationRecord
       dependent: :destroy
    )
 
+   belongs_to(
+      :owner,
+      class_name: 'User',
+      foreign_key: :user_id,
+      primary_key: :id
+   )
+
    def age
       time_ago_in_words(birth_date)
    end
