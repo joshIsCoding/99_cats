@@ -6,10 +6,16 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
+users = User.create( [
+   { user_name: "bonable", password: "test"},
+   { user_name: "serenable", password: "seren_test"},
+   { user_name: "charisable", password: "charis"}
+])
+
 cats = Cat.create([
-   { name: "Sennacy", birth_date: "01/07/2015", color: "leopard", sex: "M", description: "I cherish this little panther." },
-   { name: "Tabitha", birth_date: "10/02/2016", color: "tabby", sex: "F", description: "Charmed, I'm sure." },
-   { name: "Willace", birth_date: "23/11/2017", color: "tortoiseshell", sex: "M", description: "Truly, an aristocat." },
+   { name: "Sennacy", birth_date: "01/07/2015", color: "leopard", sex: "M", description: "I cherish this little panther.", owner: users[0] },
+   { name: "Tabitha", birth_date: "10/02/2016", color: "tabby", sex: "F", description: "Charmed, I'm sure.", owner: users[2] },
+   { name: "Willace", birth_date: "23/11/2017", color: "tortoiseshell", sex: "M", description: "Truly, an aristocat.", owner: users[1] }
 ])
 
 cat_rental_requests = CatRentalRequest.create([
