@@ -36,10 +36,11 @@ class CatRentalRequestsController < ApplicationController
    end
 
    def check_user
-      if current_user.cats.where(id: params[:id]).empty?
+      desired_cat = CatRentalRequest.find_by_id(params[:id]).desired_cat
+      if current_user.cats.where(id: desired_cat.id).empty?
          flash[:errors] ||= []
          flash[:errors] << "You don't have permission to modify this request"
-         redirect_to cat_url(CatRentalRequest.find_by_id(params[:id]).desired_cat)
+         redirect_to cat_url()
       end
    end
 
