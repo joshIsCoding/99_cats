@@ -15,6 +15,13 @@ class User < ApplicationRecord
       primary_key: :id
    )
 
+   has_many(
+      :rental_requests,
+      class_name: 'CatRentalRequest',
+      foreign_key: :requester_id,
+      primary_key: :id
+   )
+
    def self.find_by_credentials(user_name, password)
       # quietly return nil if user and/or password do not match
       user = self.find_by(user_name: user_name)
