@@ -51,3 +51,7 @@
 <% end %>
 
 <%= link_to 'Back to all the cats', cats_url %>
+
+<% content_for :footer do %>
+   <p>This is <%= @cat.name %>'s profile.</p>
+<% end %>

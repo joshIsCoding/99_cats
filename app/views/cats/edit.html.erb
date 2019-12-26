@@ -2,3 +2,7 @@
 
 <%= render "shared/errors" %>
 <%= render "form", cat: @cat %>
+
+<% content_for :footer do %>
+   <p>You are editing <%= @cat.name %>'s profile.</p>
+<% end %>
