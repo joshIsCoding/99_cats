@@ -22,7 +22,9 @@
 </table>
 <br>
 <h3>Rental Requests</h3>
-<% unless @cat.rental_requests.empty? %>
+<% if current_user.nil? %>
+   <p><%= "Sign in or create an account to view rental requests!"  %></p>
+<% elsif !@cat.rental_requests.empty? %>
    <table>
       <thead>
          <th>Start Date</th>
