@@ -3,6 +3,8 @@ class UsersController < ApplicationController
    def create
       @user = User.new(user_params)
       if @user.save
+         welcome_msg = UserMailer.welcome_email(@user)
+         welcome_msg.deliver_now
          # redirect to new session if new user saves correctly
          login_user!(user_params)
       else
