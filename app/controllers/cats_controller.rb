@@ -1,4 +1,6 @@
 class CatsController < ApplicationController
+   before_action :check_owner, only: [:edit, :update]
+
    def index
       @cats = Cat.all
       render :index
@@ -57,4 +59,11 @@ class CatsController < ApplicationController
       params.require(:cat).permit(:name, :birth_date, :color, :sex, :description)
    end
 
+   def check_owner
+      if current_user.cats.where(id: params[:id]).empty?
+         flash[:errors] ||= []
+         flash[:errors] << "Sorry, you can't edit this cat"
+         redirect_to cat_url(params[:id])
+      end
+   end
 end
