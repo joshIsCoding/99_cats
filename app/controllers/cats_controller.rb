@@ -1,6 +1,8 @@
 class CatsController < ApplicationController
    before_action :check_owner, only: [:edit, :update]
-
+   # both edit and update must be protected because malicious users could hijack
+   # the update action even without access to the edit form
+   
    def index
       @cats = Cat.all
       render :index
