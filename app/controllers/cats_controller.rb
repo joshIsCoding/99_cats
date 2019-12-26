@@ -10,6 +10,9 @@ class CatsController < ApplicationController
 
    def show
       @cat = Cat.find_by_id(params[:id])
+      # pre-fetch the requesting user info to display their username and avoid an
+      # N+1 query
+      @rental_requests = @cat.rental_requests.includes(:requester)
       if @cat
          render :show
       else
