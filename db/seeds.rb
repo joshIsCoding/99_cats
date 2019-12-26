@@ -19,12 +19,12 @@ cats = Cat.create([
 ])
 
 cat_rental_requests = CatRentalRequest.create([
-   { cat_id: 3, start_date: "05/01/2020", end_date: "10/01/2020"},
-   { cat_id: 3, start_date: "01/01/2020", end_date: "5/01/2020"},
-   { cat_id: 3, start_date: "06/01/2020", end_date: "7/01/2020"},
-   { cat_id: 3, start_date: "07/01/2020", end_date: "11/01/2020"},
-   { cat_id: 3, start_date: "10/01/2020", end_date: "15/01/2020"},
-   { cat_id: 3, start_date: "11/01/2020", end_date: "15/01/2020"},
-   { cat_id: 3, start_date: "1/01/2020", end_date: "11/01/2020"},
-   { cat_id: 3, start_date: "1/01/2020", end_date: "3/01/2020"}
+   { cat_id: 3, start_date: "05/01/2020", end_date: "10/01/2020", requester: users[0]},
+   { cat_id: 3, start_date: "01/01/2020", end_date: "5/01/2020", requester: users[2]},
+   { cat_id: 2, start_date: "06/01/2020", end_date: "7/01/2020", requester: users[2]},
+   { cat_id: 3, start_date: "07/01/2020", end_date: "11/01/2020", requester: users[2]},
+   { cat_id: 1, start_date: "10/01/2020", end_date: "15/01/2020", requester: users[1]},
+   { cat_id: 2, start_date: "11/01/2020", end_date: "15/01/2020", requester: users[0]},
+   { cat_id: 1, start_date: "1/01/2020", end_date: "11/01/2020", requester: users[2]},
+   { cat_id: 2, start_date: "1/01/2020", end_date: "3/01/2020", requester: users[0]}
 ])
