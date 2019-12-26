@@ -1,5 +1,7 @@
 <% action = (mode == :new_session) ? session_url : users_url%>
 <form action="<%= action%>" method="post">
+   <%= auth_token %>
+   <!-- protects  from CSRF attacks -->
    <label for="user_name">Username:</label>
    <input id="user_name" type="text" name="user[user_name]">
 

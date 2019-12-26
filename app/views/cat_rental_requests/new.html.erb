@@ -3,6 +3,8 @@
 <%= render "shared/errors" %>
 
 <form action="<%= cat_rental_requests_url %>" method="post">
+   <%= auth_token %>
+   <!-- protects  from CSRF attacks -->
    <label for="cat-select">Cat:</label>
    <select id="cat-select" name="cat_rental_request[cat_id]">
       <option disabled selected>~choose a kitty!~</option>

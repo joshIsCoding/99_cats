@@ -1,5 +1,7 @@
 <% action_url = cat.persisted? ? cat_url(cat) : cats_url %>
 <form action=<%= action_url %> method="post">
+   <%= auth_token %>
+   <!-- protects  from CSRF attacks -->
    <% if cat.persisted? %>
       <input type="hidden" name="_method" value="patch" />
    <% end %>
