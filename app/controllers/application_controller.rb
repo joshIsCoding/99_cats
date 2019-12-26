@@ -12,7 +12,7 @@ class ApplicationController < ActionController::Base
          redirect_to cats_url
       else
          flash.now[:errors] = ["Invalid user credentials."]
-         render "session/new"
+         render "sessions/new"
       end
    end
 
