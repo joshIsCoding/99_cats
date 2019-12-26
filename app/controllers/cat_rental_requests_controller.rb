@@ -1,4 +1,6 @@
 class CatRentalRequestsController < ApplicationController
+   before_action :check_user, only: [:approve, :deny]
+   
    def new
       @cats = Cat.select(:name, :id)
       @new_rental_request = CatRentalRequest.new
@@ -31,6 +33,14 @@ class CatRentalRequestsController < ApplicationController
    private
    def rental_params
       params.require(:cat_rental_request).permit(:cat_id, :start_date, :end_date)
+   end
+
+   def check_user
+      if current_user.cats.where(id: params[:id]).empty?
+         flash[:errors] ||= []
+         flash[:errors] << "You don't have permission to modify this request"
+         redirect_to cat_url(CatRentalRequest.find_by_id(params[:id]).desired_cat)
+      end
    end
 
 end
