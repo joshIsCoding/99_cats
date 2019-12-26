@@ -24,17 +24,19 @@
 <h3>Rental Requests</h3>
 <% if current_user.nil? %>
    <p><%= "Sign in or create an account to view rental requests!"  %></p>
-<% elsif !@cat.rental_requests.empty? %>
+<% elsif @rental_requests %>
    <table>
       <thead>
+         <th>User</th>
          <th>Start Date</th>
          <th>End Date</th>
          <th>Status</th>
       </thead>
       <tbody>
-         <% @cat.rental_requests.order(:start_date).each do |rental_request| %>
+         <% @rental_requests.order(:start_date).each do |rental_request| %>
       
          <tr>
+            <td><%= rental_request.requester.user_name %></td>
             <td><%= rental_request.start_date %></td>
             <td><%= rental_request.end_date %></td>
             <td><%= rental_request.status %></td>
