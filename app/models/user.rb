@@ -11,7 +11,7 @@ class User < ApplicationRecord
    has_many(
       :cats,
       class_name: 'Cat',
-      foreign_key: :user_id,
+      foreign_key: :owner_id,
       primary_key: :id
    )
 

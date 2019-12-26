@@ -20,7 +20,7 @@ class Cat < ApplicationRecord
    belongs_to(
       :owner,
       class_name: 'User',
-      foreign_key: :user_id,
+      foreign_key: :owner_id,
       primary_key: :id
    )
 
